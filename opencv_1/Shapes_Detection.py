@@ -1,5 +1,5 @@
 import cv2 as cv
-import numpy as np
+
 
 def getContours(img):
     countours, hierarchy = cv.findContours(img, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
@@ -11,7 +11,7 @@ def getContours(img):
         if area > 500:
             cv.drawContours(imgContour, cnt, -1, (255, 0, 0), 4)
             perimeter = cv.arcLength(cnt, True)
-            #print(perimeter)
+            # print(perimeter)
             approx = cv.approxPolyDP(cnt, 0.01 * perimeter, True)
             print(len(approx))
             obj_corner = len(approx)
@@ -21,10 +21,12 @@ def getContours(img):
                 object_type = "Triangle"
             elif obj_corner == 4:
                 object_type = "Sq"
-            else: object_type = "NONE"
+            else:
+                object_type = "NONE"
 
-            cv.rectangle(imgContour, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            cv.putText(imgContour, object_type, (x + (w // 2) - 10, y + (h // 2) - 100),cv.FONT_HERSHEY_COMPLEX,0.5, (0, 0, 0), 2)
+            cv.rectangle(imgContour, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv.putText(imgContour, object_type, (x + (w // 2) - 10, y + (h // 2) - 100), cv.FONT_HERSHEY_COMPLEX, 0.5,
+                       (0, 0, 0), 2)
 
 
 img = cv.imread("shapes.png")
@@ -41,4 +43,3 @@ cv.imshow("Blur", imgBlur)
 cv.imshow("Canny", imgCanny)
 cv.imshow("Contours", imgContour)
 cv.waitKey(0)
-

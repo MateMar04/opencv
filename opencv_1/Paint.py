@@ -35,17 +35,17 @@ def find_color(img, colors, color_values):
         if x != 0 and y != 0:
             new_points.append([x, y, cont])
         cont += 1
-        #cv.imshow(str(color[0]), mask)
+        # cv.imshow(str(color[0]), mask)
     return new_points
 
 
 def get_contours(img):
-    contours, hierarchy = cv.findContours(img, cv.RETR_EXTERNAL,cv.CHAIN_APPROX_NONE)
+    contours, hierarchy = cv.findContours(img, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
     x, y, w, h = 0, 0, 0, 0
     for cnt in contours:
         area = cv.contourArea(cnt)
         if area > 500:
-            #cv.drawContours(imgResult, cnt, -1, (255, 0, 0), 3)
+            # cv.drawContours(imgResult, cnt, -1, (255, 0, 0), 3)
             peri = cv.arcLength(cnt, True)
             approx = cv.approxPolyDP(cnt, 0.02 * peri, True)
             x, y, w, h = cv.boundingRect(approx)
@@ -55,7 +55,6 @@ def get_contours(img):
 def draw(points, color_values):
     for point in points:
         cv.circle(imgResult, (point[0], point[1]), 10, color_values[point[2]], cv.FILLED)
-
 
 
 while True:
